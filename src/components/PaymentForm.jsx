@@ -30,7 +30,7 @@ function PaymentForm() {
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/api/personal-information', {
+      const response = await axios.post('http://localhost:7000/api/personal-info', {
         fullName: formData.fullName,
         dateOfBirth: formData.dateOfBirth,
         nicOrPpNo: formData.nicOrPpNo,

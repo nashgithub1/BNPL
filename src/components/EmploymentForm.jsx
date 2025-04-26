@@ -6,10 +6,10 @@ import NextButtonIcon from './NextButtonIcon';
 
 function EmploymentForm() {
   const [formData, setFormData] = useState({
-    naturebusiness: '',
-    namebusiness: '',
+    natureOfBusiness: '',
+    employerName: '',
     designation: '',
-    experience: '',
+    yearsOfExperience: '',
   });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -24,21 +24,21 @@ function EmploymentForm() {
     setError(null);
     setSuccess(false);
 
-    if (!formData.naturebusiness || !formData.namebusiness || !formData.designation || !formData.experience) {
+    if (!formData.natureOfBusiness || !formData.employerName || !formData.designation || !formData.yearsOfExperience) {
       setError('All fields are required');
       return;
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/api/personal-information', {
-        naturebusiness: formData.naturebusiness,
-        namebusiness: formData.namebusiness,
+      const response = await axios.post('http://localhost:7000/api/employment-details', {
+        natureOfBusiness: formData.natureOfBusiness,
+        employerName: formData.employerName,
         designation: formData.designation,
-        experience: formData.experience,
+        yearsOfExperience: formData.yearsOfExperience,
       });
       console.log('Response:', response.data);
       setSuccess(true);
-      setFormData({ naturebusiness: '', namebusiness: '', designation: '', experience: '' });
+      setFormData({ natureOfBusiness: '', employerName: '', designation: '', yearsOfExperience: '' });
       navigate('/app/income'); // Navigate to IncomeForm after successful submission
     } catch (err) {
       setError('Failed to submit form. Please try again.');
@@ -61,8 +61,8 @@ function EmploymentForm() {
           <label className="form-label">Nature of Business *</label>
           <input
             type="text"
-            name="naturebusiness"
-            value={formData.naturebusiness}
+            name="natureOfBusiness"
+            value={formData.natureOfBusiness}
             onChange={handleChange}
             className="form-input"
             required
@@ -72,8 +72,8 @@ function EmploymentForm() {
           <label className="form-label">Name of Employer/Business/Enterprise *</label>
           <input
             type="text"
-            name="namebusiness"
-            value={formData.namebusiness}
+            name="employerName"
+            value={formData.employerName}
             onChange={handleChange}
             className="form-input"
             required
@@ -94,8 +94,8 @@ function EmploymentForm() {
           <label className="form-label">Experience (Years) *</label>
           <input
             type="number"
-            name="experience"
-            value={formData.experience}
+            name="yearsOfExperience"
+            value={formData.yearsOfExperience}
             onChange={handleChange}
             className="form-input"
             required

@@ -48,7 +48,7 @@ function IncomeForm() {
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/api/personal-information', {
+      const response = await axios.post('http://localhost:7000/income-details', {
         basicSalary: formData.basicSalary,
         allowance: formData.allowance,
         profitsDividends: formData.profitsDividends,
