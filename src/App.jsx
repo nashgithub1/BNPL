@@ -1,8 +1,7 @@
 import { useState } from 'react';
+import { Outlet } from 'react-router-dom'; // Import Outlet for nested routes
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import PaymentForm from './components/PaymentForm';
-import StartForm from './components/Startform';
 import './components/styles/main.css';
 
 function App() {
@@ -15,12 +14,13 @@ function App() {
   return (
     <div className="app-container">
       <Header />
-      
-        <Sidebar />
+      <div className="content-wrapper">
+        <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <div className="main-content">
-          <PaymentForm />
+          <Outlet /> {/* This is where PaymentForm, StartForm, etc. will render */}
         </div>
       </div>
+    </div>
   );
 }
 

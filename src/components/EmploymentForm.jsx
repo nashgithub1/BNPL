@@ -4,12 +4,12 @@ import axios from 'axios';
 import Button from './Button';
 import NextButtonIcon from './NextButtonIcon';
 
-function PaymentForm() {
+function EmploymentForm() {
   const [formData, setFormData] = useState({
-    fullName: '',
-    dateOfBirth: '',
-    nicOrPpNo: '',
-    profession: '',
+    naturebusiness: '',
+    namebusiness: '',
+    designation: '',
+    experience: '',
   });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -24,81 +24,85 @@ function PaymentForm() {
     setError(null);
     setSuccess(false);
 
-    if (!formData.fullName || !formData.dateOfBirth || !formData.nicOrPpNo || !formData.profession) {
+    if (!formData.naturebusiness || !formData.namebusiness || !formData.designation || !formData.experience) {
       setError('All fields are required');
       return;
     }
 
     try {
       const response = await axios.post('http://localhost:8080/api/personal-information', {
-        fullName: formData.fullName,
-        dateOfBirth: formData.dateOfBirth,
-        nicOrPpNo: formData.nicOrPpNo,
-        profession: formData.profession,
+        naturebusiness: formData.naturebusiness,
+        namebusiness: formData.namebusiness,
+        designation: formData.designation,
+        experience: formData.experience,
       });
       console.log('Response:', response.data);
       setSuccess(true);
-      setFormData({ fullName: '', dateOfBirth: '', nicOrPpNo: '', profession: '' });
-      navigate('/app/employment'); // Navigate to EmploymentForm instead of ContactForm
+      setFormData({ naturebusiness: '', namebusiness: '', designation: '', experience: '' });
+      navigate('/app/income'); // Navigate to IncomeForm after successful submission
     } catch (err) {
       setError('Failed to submit form. Please try again.');
       console.error(err);
     }
   };
 
+  const handleBack = () => {
+    navigate('/app/payment');
+  };
+
   return (
     <main className="payment-form">
       <h2 className="payment-title">Welcome</h2>
-      <h3 className="payment-subtitle">Personal Details</h3>
+      <h3 className="payment-subtitle">Employment Details</h3>
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">Form submitted successfully!</p>}
       <form onSubmit={handleSubmit} className="form">
         <div className="form-group">
-          <label className="form-label">Name in Full *</label>
+          <label className="form-label">Nature of Business *</label>
           <input
             type="text"
-            name="fullName"
-            value={formData.fullName}
+            name="naturebusiness"
+            value={formData.naturebusiness}
             onChange={handleChange}
             className="form-input"
             required
           />
         </div>
         <div className="form-group">
-          <label className="form-label">Date of Birth *</label>
+          <label className="form-label">Name of Employer/Business/Enterprise *</label>
           <input
-            type="date"
-            name="dateOfBirth"
-            value={formData.dateOfBirth}
+            type="text"
+            name="namebusiness"
+            value={formData.namebusiness}
             onChange={handleChange}
             className="form-input"
             required
           />
         </div>
         <div className="form-group">
-          <label className="form-label">NIC No. / PP No. *</label>
+          <label className="form-label">Designation *</label>
           <input
             type="text"
-            name="nicOrPpNo"
-            value={formData.nicOrPpNo}
+            name="designation"
+            value={formData.designation}
             onChange={handleChange}
             className="form-input"
             required
           />
         </div>
         <div className="form-group">
-          <label className="form-label">Profession *</label>
+          <label className="form-label">Experience (Years) *</label>
           <input
-            type="text"
-            name="profession"
-            value={formData.profession}
+            type="number"
+            name="experience"
+            value={formData.experience}
             onChange={handleChange}
             className="form-input"
             required
           />
         </div>
         <div className="button-group">
-          <Button variant="secondary">Back</Button>
+          <Button variant="secondary" onClick={handleBack}>Back</Button>
           <Button type="submit" variant="primary">
             Next
             <NextButtonIcon />
@@ -109,4 +113,4 @@ function PaymentForm() {
   );
 }
 
-export default PaymentForm;
+export default EmploymentForm;
